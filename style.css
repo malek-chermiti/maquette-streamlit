@@ -1,0 +1,123 @@
+/* FONTS & GLOBAL */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+#MainMenu, footer, header {
+    visibility: hidden;
+}
+
+/* SIDEBAR STYLING */
+[data-testid="stSidebar"] {
+    background: #0F172A;
+    border-right: 1px solid #1e293b;
+}
+
+[data-testid="stSidebar"] * {
+    color: #94a3b8 !important;
+}
+
+/* MAIN CONTENT */
+.main {
+    background: #F8FAFC;
+}
+
+.block-container {
+    padding: 2rem 2.5rem;
+}
+
+/* TYPOGRAPHY */
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0F172A;
+    margin-bottom: 0.2rem;
+}
+
+.page-sub {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 1.8rem;
+}
+
+/* CARDS & CONTAINERS */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.placeholder {
+    background: #f1f5f9;
+    border-radius: 8px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    border: 2px dashed #e2e8f0;
+}
+
+/* BUTTONS */
+div[data-testid="stButton"] button {
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* LAYOUT UTILITIES */
+.sidebar-header {
+    padding: 1rem 0 0.5rem 0;
+}
+
+.sidebar-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: white;
+}
+
+.sidebar-subtitle {
+    font-size: 0.72rem;
+    color: #475569;
+    margin-top: 2px;
+}
+
+.sidebar-divider {
+    border-color: #1e293b;
+    margin: 0.8rem 0;
+}
+
+.user-info {
+    font-size: 0.78rem;
+    color: #475569;
+}
+
+.user-info-label {
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+
+.user-info-name {
+    color: white;
+    font-weight: 600;
+}
+
+.user-info-role {
+    color: #475569;
+    font-size: 0.7rem;
+}
