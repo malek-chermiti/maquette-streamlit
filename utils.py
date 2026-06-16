@@ -27,7 +27,7 @@ def render_sidebar_header(brand: dict, user: dict) -> None:
 def render_sidebar_footer(user: dict) -> None:
     """Render the sidebar footer with user information."""
     st.markdown(f"""
-        <hr class='sidebar-divider' style='margin: 1rem 0;'>
+        <hr class='sidebar-divider'>
         <div class='user-info'>
             <div class='user-info-label'>Connecté en tant que</div>
             <div class='user-info-name'>{user['name']}</div>
@@ -45,10 +45,10 @@ def render_page_header(title: str, subtitle: str) -> None:
 def render_kpi_card(label: str) -> None:
     """Render a single KPI card placeholder."""
     st.markdown(f"""
-        <div class='card' style='text-align:center;'>
-            <div style='font-size:2rem; color:#e2e8f0; font-weight:800;'>—</div>
-            <div style='font-size:0.78rem; color:#94a3b8; margin-top:4px;'>{label}</div>
-            <div style='font-size:0.72rem; color:#e2e8f0; margin-top:4px;'>—</div>
+        <div class='card card-center'>
+            <div class='kpi-value'>—</div>
+            <div class='kpi-label'>{label}</div>
+            <div class='kpi-note'>—</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -63,10 +63,17 @@ def render_kpi_row(labels: list) -> None:
 
 def render_card_with_title(title: str, content: str = "", height: str = "180px") -> None:
     """Render a card with title and content placeholder."""
+    placeholder_class = {
+        "120px": "placeholder-short",
+        "180px": "",
+        "350px": "placeholder-chat",
+        "380px": "placeholder-tall",
+    }.get(height, "")
+
     st.markdown(f"""
         <div class='card'>
             <div class='section-title'>{title}</div>
-            <div class='placeholder' style='height:{height};'>{content}</div>
+            <div class='placeholder {placeholder_class}'>{content}</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -90,9 +97,9 @@ def render_card_footer(content: str = "") -> None:
 def render_agent_item(label: str) -> None:
     """Render a single agent item in the pipeline."""
     st.markdown(f"""
-        <div class='card' style='padding:1rem 1.5rem; margin-bottom:0.5rem;'>
-            <div style='font-weight:600; color:#0F172A; font-size:0.88rem;'>{label}</div>
-            <div style='color:#94a3b8; font-size:0.78rem; margin-top:4px;'>Statut — données à venir</div>
+        <div class='card card-compact'>
+            <div class='agent-card-title'>{label}</div>
+            <div class='agent-card-status'>Statut — données à venir</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -102,12 +109,9 @@ def render_3d_viewer_placeholder() -> None:
     st.markdown("""
         <div class='card'>
             <div class='section-title'>🧊 Viewer 3D</div>
-            <div style='background:#0f172a; border-radius:8px; height:380px;
-                        display:flex; align-items:center; justify-content:center;
-                        flex-direction:column; gap:1rem;
-                        border: 2px dashed #1e3a5f;'>
-                <div style='font-size:3rem;'>🏗️</div>
-                <div style='color:#475569; font-size:0.85rem;'>
+            <div class='viewer-3d-placeholder'>
+                <div class='viewer-3d-icon'>🏗️</div>
+                <div class='viewer-3d-text'>
                     Viewer Three.js — intégration J15-J21
                 </div>
             </div>
