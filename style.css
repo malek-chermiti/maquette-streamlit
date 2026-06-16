@@ -4,6 +4,9 @@
 * {
     font-family: 'Inter', sans-serif;
 }
+[data-testid="stSidebarNav"] {
+    display: none;
+}
 
 #MainMenu, footer, header {
     visibility: hidden;
