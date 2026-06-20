@@ -4,11 +4,14 @@
 * {
     font-family: 'Inter', sans-serif;
 }
+
 [data-testid="stSidebarNav"] {
     display: none;
 }
 
-#MainMenu, footer, header {
+#MainMenu,
+footer,
+header {
     visibility: hidden;
 }
 
@@ -369,4 +372,110 @@ div[data-testid="stButton"] button {
 .user-info-role {
     color: #475569;
     font-size: 0.7rem;
+}
+
+/* Global */
+
+body {
+    background: linear-gradient(135deg,
+            #0f172a,
+            #1e293b);
+    font-family: "Segoe UI", sans-serif;
+}
+
+
+/* Title */
+
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 38px;
+    font-weight: 700;
+}
+
+
+/* Login container */
+
+.login-container {
+
+    background: rgba(255, 255, 255, 0.08);
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    width: 450px;
+
+    margin: auto;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.4);
+
+}
+
+
+/* Inputs */
+
+input {
+
+    background-color: white !important;
+
+    border-radius: 10px !important;
+
+    padding: 12px !important;
+
+}
+
+
+/* Button */
+
+.stButton button {
+
+    width: 100%;
+
+    background: linear-gradient(90deg,
+            #2563eb,
+            #06b6d4);
+
+    color: white;
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 12px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+
+}
+
+
+.stButton button:hover {
+
+    transform: scale(1.03);
+
+}
+
+
+/* Text */
+
+label {
+
+    color: #e2e8f0 !important;
+
+    font-weight: 600;
+
+}
+
+
+/* Success message */
+
+.stSuccess {
+
+    border-radius: 10px;
+
 }
