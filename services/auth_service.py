@@ -80,7 +80,6 @@ def api_request(method: str, endpoint: str, data=None):
         if method.lower() == "get":
 
             response = requests.get(url, headers=headers)
-
         elif method.lower() == "post":
 
             response = requests.post(
@@ -105,3 +104,4 @@ def logout():
 
     st.session_state.clear()
     st.session_state.authenticated = False
+    
