@@ -16,7 +16,7 @@ def show_login():
         "Email"
     )
     password = st.text_input(
-        "Password",
+        "mot de passe",
         type="password"
     )
 
