@@ -2,49 +2,67 @@
 
 # Page Configuration
 PAGE_CONFIG = {
-    "page_title": "TOWERMIND — BIMLO",
-    "page_icon": "🏗️",
-    "layout": "wide"
+    "page_title": "TOWERMIND - BIMLO",
+    "page_icon": "T",
+    "layout": "wide",
 }
 
-# Navigation Pages
-PAGES = [
-    "🏠  Tableau de bord",
-    "📁  Projets",
-    "⚠️  Anomalies",
-    "🗼  Détail Pylône",
-    "🤖  Agents IA",
-    "🧊  Jumeau 3D",
-    "💬  Chatbot RAG",
-    "📄  Rapports",
+# Backend API
+API_URL = "http://localhost:8000"
+
+# Local authentication store used when the backend is not available.
+AUTH_STORE_PATH = "users_auth.json"
+
+# Authentication fallback for the mock when the backend is offline.
+ALLOW_DEMO_LOGIN = True
+
+# Navigation - liste unique (pages principales + pages statiques)
+ALL_PAGES = [
+    "Tableau de bord",
+    "Projets",
+    "Anomalies",
+    "Detail Pylone",
+    "Agents IA",
+    "Jumeau 3D",
+    "Chatbot RAG",
+    "Rapports",
+    "A propos",
+    "FAQ",
+    "Contact",
+    "Documentation utilisateur",
+    "Mentions legales",
+    "Politique de confidentialite",
 ]
+
+# Retrocompatibilite
+PAGES = ALL_PAGES[:8]
 
 # Sidebar Configuration
 SIDEBAR_BRAND = {
     "name": "TOWERMIND",
-    "icon": "🏗️",
-    "tagline": "BIMLO Technologies · VERTWIN"
+    "icon": "T",
+    "tagline": "BIMLO Technologies - VERTWIN",
 }
 
 SIDEBAR_USER = {
     "name": "Malek Chermiti",
-    "role": "Développeur Front · M4"
+    "role": "Developpeur Front - M4",
 }
 
 # Dashboard KPIs
 DASHBOARD_KPIS = [
-    "🗼 Pylônes surveillés",
-    "⚠️ Anomalies actives",
-    "✅ Précision vérification",
-    "⚡ Temps moyen de traitement",
+    "Pylones surveilles",
+    "Anomalies actives",
+    "Precision verification",
+    "Temps moyen de traitement",
 ]
 
 # Filter Options
 FILTER_OPTIONS = {
     "modules": ["Tous", "M1", "M2", "M3", "M4", "M5"],
     "criticality": ["Toutes", "Critique", "Majeure", "Mineure"],
-    "agents": ["Tous", "①", "②", "③", "④", "⑤"],
-    "status": ["Tous", "Vérifié", "En cours", "Anomalie"],
+    "agents": ["Tous", "M1", "M2", "M3", "M4", "M5"],
+    "status": ["Tous", "Verifie", "En cours", "Anomalie"],
     "period": ["Ce mois", "3 mois", "6 mois", "Tout"],
     "export_format": ["PDF", "Word (.docx)"],
 }
@@ -54,20 +72,20 @@ PROJECTS = ["PRJ-2024-001", "PRJ-2024-002", "PRJ-2024-003"]
 
 # AI Agents Pipeline
 AI_AGENTS = [
-    "Agent ① — Plans 2D → Note de Calcul",
-    "Agent ② — NC → Plans Fabrication",
-    "Agent ③ — NC → SolidWorks",
-    "Agent ④ — SolidWorks → IFC",
-    "Agent ⑤ — Plans Fabrication ↔ IFC",
+    "Agent M1 - Plans 2D vers Note de Calcul",
+    "Agent M2 - NC vers Plans Fabrication",
+    "Agent M3 - NC vers SolidWorks",
+    "Agent M4 - SolidWorks vers IFC",
+    "Agent M5 - Plans Fabrication / IFC",
 ]
 
 # Report Sections
 REPORT_SECTIONS = [
     "Anomalies",
-    "Résultats agents",
+    "Resultats agents",
     "KPIs",
     "Graphiques",
-    "Recommandations"
+    "Recommandations",
 ]
 
 # Color Scheme

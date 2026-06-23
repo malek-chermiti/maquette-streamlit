@@ -8,6 +8,12 @@ from . import ai_agents
 from . import twin_3d
 from . import chatbot
 from . import reports
+from . import about
+from . import faq
+from . import contact
+from . import documentation
+from . import legal
+from . import privacy
 
 __all__ = [
     "dashboard",
@@ -18,4 +24,10 @@ __all__ = [
     "twin_3d",
     "chatbot",
     "reports",
+    "about",
+    "faq",
+    "contact",
+    "documentation",
+    "legal",
+    "privacy",
 ]

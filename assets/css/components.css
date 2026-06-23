@@ -1,0 +1,405 @@
+/* ═══════════════════════════════════════════════════════════════════
+   TOWERMIND — Composants secondaires
+   Extension du design Malek : Inter, slate palette, cards 12px radius
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Topbar & Breadcrumbs ───────────────────────────────────────── */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    min-height: 1.5rem;
+}
+
+.topbar-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.topbar-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.breadcrumbs {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.breadcrumb-link {
+    color: #3b82f6;
+    cursor: default;
+}
+
+.breadcrumb-current {
+    color: #0F172A;
+    font-weight: 600;
+}
+
+.breadcrumb-sep {
+    color: #cbd5e1;
+    margin: 0 0.15rem;
+}
+
+/* ── Cards enhancements ─────────────────────────────────────────── */
+.card-hover {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card-hover:hover {
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    transform: translateY(-1px);
+}
+
+.placeholder-short {
+    height: 120px;
+}
+
+.placeholder-chat {
+    height: 350px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: #3b82f6;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+
+/* ── Badges ───────────────────────────────────────────────────────── */
+.badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.badge-default {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.badge-info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.badge-success {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.badge-warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-critical {
+    background: #fce7f3;
+    color: #be185d;
+}
+
+/* ── Alerts & Toasts ──────────────────────────────────────────────── */
+.notice-success {
+    border-left: 3px solid #22c55e;
+}
+
+.notice-error {
+    border-left: 3px solid #ef4444;
+}
+
+.alert-block {
+    margin-bottom: 1rem;
+}
+
+.alert-title {
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+}
+
+.alert-message {
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    animation: toast-in 0.3s ease;
+}
+
+.toast-info {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+}
+
+.toast-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+}
+
+.toast-warning {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    color: #92400e;
+}
+
+.toast-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+}
+
+@keyframes toast-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Accordion ────────────────────────────────────────────────────── */
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.accordion-item {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+.accordion-item[open] {
+    border-color: #3b82f6;
+}
+
+.accordion-summary {
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #0F172A;
+    cursor: pointer;
+    list-style: none;
+    transition: background 0.2s ease;
+}
+
+.accordion-summary:hover {
+    background: #f8fafc;
+}
+
+.accordion-summary::-webkit-details-marker {
+    display: none;
+}
+
+.accordion-body {
+    padding: 0 1.25rem 1rem;
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.6;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* ── Loading ──────────────────────────────────────────────────────── */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    gap: 1rem;
+}
+
+.loading-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #e2e8f0;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.loading-text {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Footer ───────────────────────────────────────────────────────── */
+.footer-spacer {
+    height: 2.5rem;
+}
+
+.app-footer {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+}
+
+.footer-logo {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #0F172A;
+}
+
+.footer-tagline {
+    font-size: 0.72rem;
+    color: #94a3b8;
+}
+
+.footer-copy {
+    font-size: 0.72rem;
+    color: #cbd5e1;
+}
+
+/* ── Static pages ─────────────────────────────────────────────────── */
+.static-page-hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1e293b 100%);
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.static-page-hero h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0 0 0.4rem 0;
+    color: white !important;
+    text-align: left !important;
+}
+
+.static-page-hero p {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.static-content {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.7;
+}
+
+.static-content h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.static-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .static-grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid-content {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ── Search wrapper ───────────────────────────────────────────────── */
+.search-wrapper {
+    margin-bottom: 0.25rem;
+}
+
+/* ── Tooltip (CSS pur) ────────────────────────────────────────────── */
+.tooltip-wrap {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+    border-bottom: 1px dashed #94a3b8;
+}
+
+.tooltip-wrap .tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0F172A;
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    z-index: 10;
+    transition: opacity 0.2s ease;
+}
+
+.tooltip-wrap:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* ── Contact form card ────────────────────────────────────────────── */
+.contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.contact-info-icon {
+    font-size: 1.1rem;
+}
+
+.contact-info-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.contact-info-value {
+    font-size: 0.9rem;
+    color: #0F172A;
+    font-weight: 500;
+}

@@ -265,6 +265,18 @@ header {
     font-size: 0.8rem;
 }
 
+.agent-card-title {
+    font-weight: 600;
+    color: #0F172A;
+    font-size: 0.9rem;
+}
+
+.agent-card-status {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 0.25rem;
+}
+
 .info-grid {
     font-size: 0.85rem;
     color: #64748b;
@@ -394,23 +406,54 @@ h1 {
 }
 
 
-/* Login container */
+/* Login page */
+
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 2rem 1rem;
+}
 
 .login-container {
-
     background: rgba(255, 255, 255, 0.08);
-
     padding: 40px;
-
     border-radius: 20px;
-
-    width: 450px;
-
+    width: 100%;
+    max-width: 450px;
     margin: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
 
-    box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.4);
+.login-brand {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
 
+.login-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.login-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: white;
+}
+
+.login-subtitle {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 0.35rem;
+}
+
+.login-intro {
+    text-align: center;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    margin: 0 0 1.5rem 0;
 }
 
 
