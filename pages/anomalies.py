@@ -1,103 +1,208 @@
-"""Anomalies page - Détection et classification par les agents IA"""
+"""
+TOWERMIND - Anomalies Dashboard (M2 API)
+Streamlit + HTML table + inline actions (Edit/Delete)
+"""
 
 import streamlit as st
-from config import FILTER_OPTIONS
-from utils import render_page_header
+import requests
+
+from config import API_URL
+from services.auth_service import get_auth_headers
 
 
+
+# =========================================================
+# FETCH ANOMALIES
+# =========================================================
+def fetch_anomalies():
+
+    try:
+        response = requests.get(
+            f"{API_URL}/anomalies",
+            headers=get_auth_headers()
+        )
+
+        return response.json() if response.status_code == 200 else []
+
+    except:
+        return []
+
+
+
+# =========================================================
+# UPDATE ANOMALY (EDIT)
+# =========================================================
+def update_anomaly(anomaly_id, data):
+
+    try:
+        requests.put(
+            f"{API_URL}/anomalies/{anomaly_id}",
+            json=data,
+            headers=get_auth_headers()
+        )
+    except:
+        pass
+
+
+
+# =========================================================
+# DELETE ANOMALY
+# =========================================================
+def delete_anomaly(anomaly_id):
+
+    try:
+        requests.delete(
+            f"{API_URL}/anomalies/{anomaly_id}",
+            headers=get_auth_headers()
+        )
+    except:
+        pass
+
+
+
+# =========================================================
+# MAIN PAGE
+# =========================================================
 def show():
-    """Render the anomalies page."""
-    st.markdown("<div class='page-title'>⚠️ Anomalies Dashboard</div>", unsafe_allow_html=True)
-    st.markdown("<div class='page-sub'>AI-flagged structural defects awaiting verification or remediation</div>", unsafe_allow_html=True)
 
-    # KPI Cards
-    k1, k2, k3, k4 = st.columns(4)
-    
-    with k1:
-        st.markdown("""
-        <div class='card' style='background: #fce7f3; border-color: #fbcfe8;'>
-            <div style='font-size:0.75rem; font-weight:700; color:#be185d; letter-spacing:0.05em;'>CRITICAL</div>
-            <div style='font-size:2.5rem; font-weight:800; color:#be185d; margin:0.5rem 0;'>—</div>
-            <div style='font-size:0.85rem; color:#ec4899;'>Immediate action</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with k2:
-        st.markdown("""
-        <div class='card' style='background: #fef3c7; border-color: #fde68a;'>
-            <div style='font-size:0.75rem; font-weight:700; color:#92400e; letter-spacing:0.05em;'>HIGH</div>
-            <div style='font-size:2.5rem; font-weight:800; color:#1f2937; margin:0.5rem 0;'>—</div>
-            <div style='font-size:0.85rem; color:#78350f;'>Within 48h</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with k3:
-        st.markdown("""
-        <div class='card' style='background: #dbeafe; border-color: #bfdbfe;'>
-            <div style='font-size:0.75rem; font-weight:700; color:#1e40af; letter-spacing:0.05em;'>MEDIUM</div>
-            <div style='font-size:2.5rem; font-weight:800; color:#1e40af; margin:0.5rem 0;'>—</div>
-            <div style='font-size:0.85rem; color:#1e3a8a;'>Within 7 days</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with k4:
-        st.markdown("""
-        <div class='card' style='background: #dcfce7; border-color: #bbf7d0;'>
-            <div style='font-size:0.75rem; font-weight:700; color:#15803d; letter-spacing:0.05em;'>RESOLVED (30D)</div>
-            <div style='font-size:2.5rem; font-weight:800; color:#15803d; margin:0.5rem 0;'>—</div>
-            <div style='font-size:0.85rem; color:#22c55e;'>+12% vs prev.</div>
-        </div>
-        """, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown(
+        "<h1 style='text-align:center;'>TOWERMIND - Anomalies</h1>",
+        unsafe_allow_html=True
+    )
 
-    # Top Actions
-    c1 = st.columns(1)[0]
-    
+
+    anomalies = fetch_anomalies()
+
+
+
+    # =========================================================
+    # KPI SECTION
+    # =========================================================
+
+    critical = len([a for a in anomalies if a.get("severite") == "critique"])
+    open_ = len([a for a in anomalies if a.get("statut") == "ouverte"])
+    resolved = len([a for a in anomalies if a.get("statut") == "resolue"])
+
+
+
+    c1, c2, c3 = st.columns(3)
+
     with c1:
-        st.text_input("Search anomaly ID, tower, type...", placeholder="Search anomaly ID, tower, type...")
+        st.metric("CRITICAL", critical)
+
+    with c2:
+        st.metric("OPEN", open_)
+
+    with c3:
+        st.metric("RESOLVED", resolved)
+
+
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # Filters
-    f1, f2, f3, f4 = st.columns(4)
-    with f1:
-        st.selectbox("Severity", ["All severities", "Critical", "High", "Medium", "Low"])
-    with f2:
-        st.selectbox("Region", ["All regions", "Tunis", "Sfax", "Sousse", "Bizerte"])
-    with f3:
-        st.selectbox("State", ["All states", "Open", "Reviewing", "Resolved"])
-    with f4:
-        st.selectbox("Period", ["Last 30 days", "Last 7 days", "Last 24h", "All"])
 
-    st.markdown("<br>", unsafe_allow_html=True)
 
-    # Anomalies Table
-    st.markdown("""
-    <div class='card'>
-        <div class='section-title'>📋 Anomalies List</div>
-        <div style='overflow-x: auto;'>
-            <table style='width:100%; border-collapse: collapse; font-size:0.85rem;'>
-                <thead style='background:#f8fafc; border-bottom: 2px solid #e2e8f0;'>
-                    <tr>
-                        <th style='padding:0.75rem; text-align:left; font-weight:600; color:#0F172A;'>ID</th>
-                        <th style='padding:0.75rem; text-align:left; font-weight:600; color:#0F172A;'>TOWER</th>
-                        <th style='padding:0.75rem; text-align:left; font-weight:600; color:#0F172A;'>ANOMALY</th>
-                        <th style='padding:0.75rem; text-align:left; font-weight:600; color:#0F172A;'>SEVERITY</th>
-                        <th style='padding:0.75rem; text-align:left; font-weight:600; color:#0F172A;'>CONFIDENCE</th>
-                        <th style='padding:0.75rem; text-align:left; font-weight:600; color:#0F172A;'>REGION</th>
-                        <th style='padding:0.75rem; text-align:left; font-weight:600; color:#0F172A;'>DETECTED</th>
-                        <th style='padding:0.75rem; text-align:left; font-weight:600; color:#0F172A;'>STATE</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style='border-bottom: 1px solid #e2e8f0;'>
-                        <td colspan='8' style='padding:2rem; text-align:center; color:#94a3b8;'>
-                            📋 Anomalies data — coming soon
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    # =========================================================
+    # TABLE HEADER
+    # =========================================================
+
+    st.markdown(
+        """
+        <div style="
+        background:#0f172a;
+        color:white;
+        padding:12px;
+        border-radius:8px;
+        font-weight:bold;
+        display:grid;
+        grid-template-columns:60px 1fr 120px 120px 200px;
+        ">
+
+        <div>ID</div>
+        <div>TYPE</div>
+        <div>SEVERITY</div>
+        <div>STATUS</div>
+        <div>ACTIONS</div>
+
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
+
+
+
+    # =========================================================
+    # TABLE ROWS WITH ACTIONS
+    # =========================================================
+
+    for a in anomalies:
+
+        col1, col2, col3, col4, col5 = st.columns([1,3,2,2,3])
+
+        with col1:
+            st.write(a.get("id"))
+
+        with col2:
+            st.write(a.get("type_anomalie"))
+
+        with col3:
+            st.write(a.get("severite"))
+
+        with col4:
+            st.write(a.get("statut"))
+
+
+
+        with col5:
+
+            b1, b2 = st.columns(2)
+
+
+
+            # =========================
+            # EDIT (UPDATE STATUS)
+            # =========================
+            with b1:
+
+                if st.button("✏️", key=f"edit_{a['id']}"):
+
+                    new_status = "ouverte"
+
+                    if a.get("statut") == "ouverte":
+                        new_status = "en_revision"
+                    elif a.get("statut") == "en_revision":
+                        new_status = "resolue"
+
+
+                    update_anomaly(
+                        a["id"],
+                        {"statut": new_status}
+                    )
+
+                    st.success("Updated")
+                    st.rerun()
+
+
+
+            # =========================
+            # DELETE
+            # =========================
+            with b2:
+
+                if st.button("🗑", key=f"del_{a['id']}"):
+
+                    delete_anomaly(a["id"])
+
+                    st.warning("Deleted")
+                    st.rerun()
+
+
+
+    # =========================================================
+    # FOOTER INFO
+    # =========================================================
+
+    st.markdown("<br><hr><br>", unsafe_allow_html=True)
+
+    st.info("✏️ Click to change status | 🗑 Click to delete anomaly")
