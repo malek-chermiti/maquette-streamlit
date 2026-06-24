@@ -10,7 +10,6 @@ from config import API_URL
 from services.auth_service import get_auth_headers
 
 
-
 # =========================================================
 # FETCH ANOMALIES
 # =========================================================
@@ -28,9 +27,8 @@ def fetch_anomalies():
         return []
 
 
-
 # =========================================================
-# UPDATE ANOMALY (EDIT)
+# UPDATE ANOMALY
 # =========================================================
 def update_anomaly(anomaly_id, data):
 
@@ -40,9 +38,9 @@ def update_anomaly(anomaly_id, data):
             json=data,
             headers=get_auth_headers()
         )
+
     except:
         pass
-
 
 
 # =========================================================
@@ -55,6 +53,7 @@ def delete_anomaly(anomaly_id):
             f"{API_URL}/anomalies/{anomaly_id}",
             headers=get_auth_headers()
         )
+
     except:
         pass
 
@@ -65,7 +64,6 @@ def delete_anomaly(anomaly_id):
 # =========================================================
 def show():
 
-
     st.markdown(
         "<h1 style='text-align:center;'>TOWERMIND - Anomalies</h1>",
         unsafe_allow_html=True
@@ -75,18 +73,28 @@ def show():
     anomalies = fetch_anomalies()
 
 
-
     # =========================================================
-    # KPI SECTION
+    # KPI
     # =========================================================
 
-    critical = len([a for a in anomalies if a.get("severite") == "critique"])
-    open_ = len([a for a in anomalies if a.get("statut") == "ouverte"])
-    resolved = len([a for a in anomalies if a.get("statut") == "resolue"])
+    critical = len([
+        a for a in anomalies 
+        if a.get("severite") == "critique"
+    ])
 
+    open_ = len([
+        a for a in anomalies 
+        if a.get("statut") == "ouverte"
+    ])
+
+    resolved = len([
+        a for a in anomalies 
+        if a.get("statut") == "resolue"
+    ])
 
 
     c1, c2, c3 = st.columns(3)
+
 
     with c1:
         st.metric("CRITICAL", critical)
@@ -116,14 +124,24 @@ def show():
         border-radius:8px;
         font-weight:bold;
         display:grid;
-        grid-template-columns:60px 1fr 120px 120px 200px;
+        grid-template-columns:
+        60px 
+        180px
+        150px
+        150px
+        120px
+        120px
+        200px;
         ">
 
         <div>ID</div>
+        <div>PROJECT</div>
+        <div>ELEMENT</div>
         <div>TYPE</div>
         <div>SEVERITY</div>
         <div>STATUS</div>
         <div>ACTIONS</div>
+
 
         </div>
         """,
@@ -133,54 +151,109 @@ def show():
 
 
     # =========================================================
-    # TABLE ROWS WITH ACTIONS
+    # TABLE ROWS
     # =========================================================
 
     for a in anomalies:
 
-        col1, col2, col3, col4, col5 = st.columns([1,3,2,2,3])
 
+        col1, col2, col3, col4, col5, col6, col7 = st.columns(
+            [1,3,2,2,2,2,3]
+        )
+
+
+        # ID
         with col1:
             st.write(a.get("id"))
 
+
+        # PROJECT
         with col2:
-            st.write(a.get("type_anomalie"))
+            st.write(
+                a.get(
+                    "projet_nom",
+                    "Unknown project"
+                )
+            )
 
+
+        # ELEMENT
         with col3:
-            st.write(a.get("severite"))
+            st.write(
+                a.get(
+                    "element_id",
+                    "-"
+                )
+            )
 
+
+        # TYPE
         with col4:
-            st.write(a.get("statut"))
+            st.write(
+                a.get("type_anomalie")
+            )
 
 
-
+        # SEVERITY
         with col5:
+            st.write(
+                a.get("severite")
+            )
+
+
+        # STATUS
+        with col6:
+            st.write(
+                a.get("statut")
+            )
+
+
+
+        # ACTIONS
+        with col7:
+
 
             b1, b2 = st.columns(2)
 
 
 
             # =========================
-            # EDIT (UPDATE STATUS)
+            # EDIT
             # =========================
+
             with b1:
 
-                if st.button("✏️", key=f"edit_{a['id']}"):
+
+                if st.button(
+                    "✏️",
+                    key=f"edit_{a['id']}"
+                ):
+
 
                     new_status = "ouverte"
 
+
                     if a.get("statut") == "ouverte":
+
                         new_status = "en_revision"
+
+
                     elif a.get("statut") == "en_revision":
+
                         new_status = "resolue"
+
 
 
                     update_anomaly(
                         a["id"],
-                        {"statut": new_status}
+                        {
+                            "statut": new_status
+                        }
                     )
 
+
                     st.success("Updated")
+
                     st.rerun()
 
 
@@ -188,21 +261,37 @@ def show():
             # =========================
             # DELETE
             # =========================
+
             with b2:
 
-                if st.button("🗑", key=f"del_{a['id']}"):
 
-                    delete_anomaly(a["id"])
+                if st.button(
+                    "🗑",
+                    key=f"del_{a['id']}"
+                ):
+
+
+                    delete_anomaly(
+                        a["id"]
+                    )
+
 
                     st.warning("Deleted")
+
                     st.rerun()
 
 
 
     # =========================================================
-    # FOOTER INFO
+    # FOOTER
     # =========================================================
 
-    st.markdown("<br><hr><br>", unsafe_allow_html=True)
+    st.markdown(
+        "<br><hr><br>",
+        unsafe_allow_html=True
+    )
 
-    st.info("✏️ Click to change status | 🗑 Click to delete anomaly")
+
+    st.info(
+        "✏️ Click to change status"
+    )
