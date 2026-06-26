@@ -10,12 +10,10 @@ from config import API_URL
 from services.auth_service import get_auth_headers
 
 
-
 # =========================================================
 # FETCH PYLONES
 # =========================================================
 def fetch_pylones():
-
     try:
         response = requests.get(
             f"{API_URL}/pylones",
@@ -26,12 +24,10 @@ def fetch_pylones():
         return []
 
 
-
 # =========================================================
 # DELETE PYLONE
 # =========================================================
 def delete_pylone(pylone_id):
-
     try:
         requests.delete(
             f"{API_URL}/pylones/{pylone_id}",
@@ -41,12 +37,10 @@ def delete_pylone(pylone_id):
         pass
 
 
-
 # =========================================================
 # UPDATE PYLONE (simple example)
 # =========================================================
 def update_pylone(pylone_id, data):
-
     try:
         requests.put(
             f"{API_URL}/pylones/{pylone_id}",
@@ -57,54 +51,37 @@ def update_pylone(pylone_id, data):
         pass
 
 
-
 # =========================================================
 # MAIN PAGE
 # =========================================================
 def show():
-
-
     st.markdown(
         "<h1 style='text-align:center;'>🗼 TOWERMIND - Pylônes</h1>",
         unsafe_allow_html=True
     )
 
-
     pylones = fetch_pylones()
-
-
 
     # =========================================================
     # KPI SECTION
     # =========================================================
-
     total = len(pylones)
     actif = len([p for p in pylones if p.get("etat") == "actif"])
     maintenance = len([p for p in pylones if p.get("etat") == "maintenance"])
 
-
-
     c1, c2, c3 = st.columns(3)
-
     with c1:
         st.metric("TOTAL PYLONES", total)
-
     with c2:
         st.metric("ACTIFS", actif)
-
     with c3:
         st.metric("MAINTENANCE", maintenance)
 
-
-
     st.markdown("<br>", unsafe_allow_html=True)
-
-
 
     # =========================================================
     # TABLE HEADER (HTML)
     # =========================================================
-
     st.markdown(
         """
         <div style="
@@ -129,14 +106,10 @@ def show():
         unsafe_allow_html=True
     )
 
-
-
     # =========================================================
     # TABLE ROWS (HTML + ACTIONS)
     # =========================================================
-
     for p in pylones:
-
         st.markdown(
         f"""
         <div style="
@@ -154,7 +127,6 @@ def show():
             <div>{p.get('etat')}</div>
 
             <div>
-
             </div>
 
         </div>
@@ -162,20 +134,14 @@ def show():
         unsafe_allow_html=True
         )
 
-
-
         # =====================================================
         # ACTION BUTTONS (Streamlit inside row)
         # =====================================================
-
         col1, col2 = st.columns(2)
 
         with col1:
-
             if st.button("✏️", key=f"upd_{p['id']}"):
-
                 new_state = "maintenance"
-
                 if p.get("etat") == "maintenance":
                     new_state = "actif"
 
@@ -183,38 +149,25 @@ def show():
                     p["id"],
                     {"etat": new_state}
                 )
-
                 st.success("Updated")
                 st.rerun()
 
-
-
         with col2:
-
             if st.button("🗑", key=f"del_{p['id']}"):
-
                 delete_pylone(p["id"])
-
                 st.warning("Deleted")
                 st.rerun()
-
-
 
     # =========================================================
     # DETAILS SECTION (OPTIONAL SELECT VIEW)
     # =========================================================
-
     st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
     ids = [p["id"] for p in pylones]
-
     selected = st.selectbox("Select pylône", ids)
-
     pylone = next((p for p in pylones if p["id"] == selected), None)
 
-
     if pylone:
-
         st.markdown(
         f"""
         <div class='card'>
